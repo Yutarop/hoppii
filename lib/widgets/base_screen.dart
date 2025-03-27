@@ -6,11 +6,31 @@ import 'package:hoppii/screens/homework_and_test_screen.dart';
 import 'package:hoppii/screens/notification_screen.dart';
 import 'package:hoppii/screens/settings_screen.dart';
 
-class BaseScreen extends StatelessWidget {
-  final Widget child;
+class BaseScreen extends StatefulWidget {
   final int currentIndex;
 
-  BaseScreen({required this.child, required this.currentIndex});
+  BaseScreen([this.currentIndex = 2]);
+
+  @override
+  State<BaseScreen> createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends State<BaseScreen> {
+  late int _currentIndex;
+
+  final List<Widget> _screens = [
+    ScheduleScreen(),
+    HomeworkAndTestScreen(),
+    HomeScreen(),
+    NotificationScreen(),
+    SettingsScreen(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.currentIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +42,12 @@ class BaseScreen extends StatelessWidget {
               color: Colors.black,
             ),
           ),),
-        body: child,
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
         bottomNavigationBar: ConvexAppBar(
-          initialActiveIndex: currentIndex,
+          initialActiveIndex: widget.currentIndex,
           items: [
             TabItem(icon: Icons.calendar_month, title: 'Schedule'),
             TabItem(icon: Icons.assignment, title: 'Homework'),
@@ -32,24 +55,10 @@ class BaseScreen extends StatelessWidget {
             TabItem(icon: Icons.message, title: 'Message'),
             TabItem(icon: Icons.settings, title: 'Settings'),
           ],
-          onTap: (int i) {
-            switch(i){
-              case 0:
-                Navigator.pushNamed(context, ScheduleScreen.id);
-                break;
-              case 1:
-                Navigator.pushNamed(context, HomeworkAndTestScreen.id);
-                break;
-              case 2:
-                Navigator.pushNamed(context, HomeScreen.id);
-                break;
-              case 3:
-                Navigator.pushNamed(context, NotificationScreen.id);
-                break;
-              default:
-                Navigator.pushNamed(context, SettingsScreen.id);
-                break;
-            }
+          onTap: (int index) {
+           setState(() {
+             _currentIndex = index;
+           });
           },
         )
     );

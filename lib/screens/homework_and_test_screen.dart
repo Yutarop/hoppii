@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hoppii/widgets/base_screen.dart';
 
 class HomeworkAndTestScreen extends StatelessWidget {
   static const String id = 'homework_and_test_screen';
@@ -8,13 +7,10 @@ class HomeworkAndTestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-        currentIndex: index,
-        child: Center(
-          child: Text(
-            'HomeWork',
-          ),
-        ),
+    return Center(
+      child: Text(
+        'HomeWork',
+      ),
     );
   }
 }

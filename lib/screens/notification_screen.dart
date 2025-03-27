@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hoppii/widgets/base_screen.dart';
 
 class NotificationScreen extends StatelessWidget {
   static const String id = 'notification_screen';
@@ -8,12 +7,9 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      currentIndex: index,
-      child: Center(
-        child: Text(
-          'HomeWork',
-        ),
+    return Center(
+      child: Text(
+        'HomeWork',
       ),
     );
   }
